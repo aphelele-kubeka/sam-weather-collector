@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-weather-data-collector
+
+  Sample SAM Template for sam-weather-data-collector
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  ## Lambda function
+  WeatherFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: weather/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        Weather:
+          Type: Api 
+          Properties:
+            Path: /weather
+            Method: get
+
+Outputs:
+  WeatherApi:
+    Description: "API Gateway endpoint URL for Prod stage for Weather function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/weather/"
+  WeatherFunction:
+    Description: "Weather Lambda Function ARN"
+    Value: !GetAtt WeatherFunction.Arn
+  WeatherFunctionIamRole:
+    Description: "Implicit IAM Role created for Weather function"
+    Value: !GetAtt WeatherFunctionRole.Arn
