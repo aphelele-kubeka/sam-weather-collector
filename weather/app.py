@@ -41,8 +41,7 @@ def lambda_handler(event, context):
 
         serializedMyData = json.dumps(context)
 
-        # Create a policy allowing a role to upload files to your S3 bucket
-        # Write to S3 using unique key - Weather
+        # Write to your S3 Bucket using unique key - weather
         s3.put_object(Body=serializedMyData, Bucket='weatherdatabucket',Key='weather.json')
 
         return {

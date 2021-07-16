@@ -17,6 +17,8 @@ Resources:
       CodeUri: weather/
       Handler: app.lambda_handler
       Runtime: python3.8
+      Policies:
+      - arn:aws:iam::423626487094:policy/WeatherDataBucketLambdaAccess
       Events:
         Weather:
           Type: Api 
